@@ -5,7 +5,7 @@ const express = require('express');
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
-const db = mongoose.connection;
+const db = mongoose.connection;v
 //___________________
 //Port
 //___________________
