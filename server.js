@@ -39,6 +39,12 @@ app.use(express.urlencoded({ extended: false }));// extended: false - does not a
 app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
+
+// Add Controllers
+const userController = require('./controllers/usersController')
+app.use('/users', userController);
+
+
 //___________________
 // Routes
 //___________________
