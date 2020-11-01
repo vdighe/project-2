@@ -1,6 +1,7 @@
 //___________________
 //Dependencies
 //___________________
+//require('dotenv').config();
 const express = require('express');
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
@@ -50,7 +51,7 @@ app.use('/users', userController);
 //___________________
 //localhost:3000
 app.get('/' , (req, res) => {
-  res.send('Hello World!');
+  res.redirect('/users')
 });
 //___________________
 //Listener

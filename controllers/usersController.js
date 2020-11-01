@@ -10,7 +10,9 @@ router.get('/', async (req,res) => {
     .then( (users) =>{ 
         //do your stuff
         console.log(`found and populated all users: ${users}`);
-        res.send('Hello Runners!');
+        //res.send('Hello Runners!');
+       // res.render('users/index.ejs', { users, currentUser: req.session.CurrentUser });
+       res.render('users/index.ejs', { users});
     });
 });
 

@@ -1,0 +1,15 @@
+
+nav {
+    background-color: #80d8ff !important;
+    font-size: 14px;
+    font-weight: bold;
+}
+.navbar-brand {
+    padding: 0px;
+}
+.navbar-brand>img {
+    height: 64px;
+    padding: 0px;
+    width: auto; 
+}
+  
