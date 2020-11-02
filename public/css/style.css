@@ -12,4 +12,7 @@ nav {
     padding: 0px;
     width: auto; 
 }
-  
+.logo-img {
+    max-height: 64px!important;
+    padding: 15px 0!important;
+}

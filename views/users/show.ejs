@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <%- include ('../partials/head.ejs') %>
+</head>
+
+<body>
+    <nav>
+        <%- include ('../partials/nav.ejs') %>
+    </nav>
+    <div class="container">
+        <h1><%= user.fullName %></h1>
+        <div class="details">
+            <div class="card text-xs-center">
+                <br>
+                <img class="card-img-top" src="/images/DefaultRunner.jpg" alt="Card image cap">
+                <div class="card-block">
+                    <h4 class="card-title">Profile Details</h4>
+                    <p class="card-text">
+                        <strong>Name</strong>: <%= user.fullName %><br>
+                        <strong>Username</strong>: <%= user.username %><br>
+                        <strong>Gender</strong>: <%= user.gender %>
+                        <strong>Age</strong>: <%= user.age %>
+                        <strong>About</strong>: <%= user.about %>
+                    </p>
+                    <a href="/users" class="btn btn-default">Logout</a>
+                    <button type="button" class="btn btn-default" name="button"><a href="/users/<%=user._id%>/edit">Update Profile</a></button>
+                    <form action="/users/<%=user._id%>?_method=DELETE" method="POST">
+                        <input type="submit" value="Delete Profile"/>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

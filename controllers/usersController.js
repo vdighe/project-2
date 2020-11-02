@@ -16,5 +16,61 @@ router.get('/', async (req,res) => {
     });
 });
 
+// ADD NEW HERE FIRST
+router.get('/new', (req, res) => {
+   
+    res.render(
+      'users/new.ejs'
+    )
+  })
+// EDIT PAGE
+/* 
+*
+*/
+router.get('/:id/edit', (req, res) => {
+    console.log(`Calling the edit user`);
+    User.findById(req.params.id, (error, user) => {
+        res.render('users/edit.ejs', {user});
+  });
+});
+
+// ADD SHOW PAGE HERE
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id, (error, user) => {
+        res.render('users/show.ejs', {user});
+    });
+  });
+  
+// DELETE
+router.delete('/:id', (req, res) => {
+    User.findByIdAndRemove(req.params.id, (err, user) => {
+      res.redirect('/users')
+    })
+  });
+
+  // UPDATE
+router.put('/:id',  (req, res) => {
+    console.log(req.body);
+    User.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true },
+      (error, updatedModel) => {
+        res.redirect('/users')
+      }
+    )
+  })
+
+  // CREATE PROFILE OF USER
+router.post('/', (req, res) => {
+    console.log(req.body);
+    try {
+       let newUser = User.create(req.body);
+       res.redirect('/users')
+    } catch (error){
+        res.send(error);
+    }
+    
+  })
 
 module.exports = router;
