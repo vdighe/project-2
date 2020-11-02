@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
-
 const User = require('./models/user');
 const Activity = require('./models/activity');
-
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + 'vdighe-project2';
 // Connect to Mongo
@@ -16,6 +14,7 @@ mongoose.connect(MONGODB_URI,
         console.log('the connection with mongod is established');
     }
 );
+
 // CREATE 3 Runners
 const seed = function () {
     const jbenoit = User.create({
@@ -46,6 +45,13 @@ const seed = function () {
         gender: 'female',
         age: 72,
         about: 'I was the first woman to run the Boston Marathon as an officially registered competitor.',
+    });
+    const vDighe = User.create({
+        username: 'vdighe',
+        fullName: 'Vaishali Dee',
+        gender: 'female',
+        age: 42,
+        about: 'Amateur Runner. Running since 2001',
     });
 };
 seed();

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const activitySchema = new mongoose.Schema({
-    username: { type: String, ref: "User", required: true },
+    user: { type: String, ref: "User", required: true },
     day: {
         type: Date,
         default: Date.now()
