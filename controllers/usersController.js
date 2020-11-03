@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   User.find().collation({ locale: 'en', strength: 2 }).sort({ username: 1 })
     .then((users) => {
       //do your stuff
-      console.log(`found and populated all users: ${users}`);
+      //console.log(`found and populated all users: ${users}`);
       //res.send('Hello Runners!');
       // res.render('users/index.ejs', { users, currentUser: req.session.CurrentUser });
       res.render('users/index.ejs', { users });
@@ -59,18 +59,13 @@ router.get('/:id/edit', (req, res) => {
     res.render('users/edit.ejs', { user });
   });
 });
-router.delete('/:id/activity/:activityId', (req, res) => {
+router.delete('/:id/activity/:activityId', async (req, res) => {
   console.log(`Calling the delete activity `);
-  //Movie.findByIdAndDelete(req.params.id);
-  //res.redirect('/movies');
+  await Activity.findByIdAndDelete(req.params.activityId);
+  res.redirect(`/users/${req.params.id}/activity`);
 });
 
-/*
-router.delete('/:id/activity', async (req, res) => {
-  await Movie.findByIdAndDelete(req.params.id);
-  res.redirect('/movies');
-});
-*/
+
 // DELETE
 router.delete('/:id', (req, res) => {
   User.findByIdAndRemove(req.params.id, (err, user) => {

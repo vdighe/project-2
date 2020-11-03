@@ -21,17 +21,20 @@
             </tr>
         </thead>
         <tbody>
-            <form action="/users/<%= user._id%>/activity?_method=DELETE" method="POST">
-                <% for(let i = 0; i < allActivity.length; i++){ %>
-                <tr>
-                    <td><%= allActivity[i].name%></td>
-                    <td><%= allActivity[i].day.toDateString()%></td>
-                    <td><%=allActivity[i].activity.type%></td>
-                    <td><%=allActivity[i].distance%></td>
-                    <td><%=allActivity[i].duration%></td>
-                    <td><input type="submit" class="btn waves-effect waves-light" value="Delete" /></td>
-                </tr>
-                <% } %>
+            <% for(let i = 0; i < allActivity.length; i++){ %>
+            <tr>
+                <td><%= allActivity[i].name%></td>
+                <td><%= allActivity[i].day.toDateString()%></td>
+                <td><%=allActivity[i].activity.type%></td>
+                <td><%=allActivity[i].distance%></td>
+                <td><%=allActivity[i].duration%></td>
+                <td>
+                    <form action="/users/<%= user._id%>/activity/<%=allActivity[i]._id%>?_method=DELETE" method="POST">
+                        <input type="submit" class="btn waves-effect waves-light" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+            <% } %>
             </form>
         </tbody>
     </table>

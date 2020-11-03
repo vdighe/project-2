@@ -4,37 +4,45 @@
 <head>
     <%- include ('../partials/head.ejs') %>
 </head>
-
 <body>
     <nav>
         <%- include ('../partials/nav.ejs') %>
     </nav>
     <div class="container">
-        <h1><%= user.fullName %></h1>
-        <div class="details">
-            <div class="card text-xs-center">
-                <br>
-                <img class="card-img-top" src="/images/DefaultRunner.jpg" alt="Card image cap">
-                <div class="card-block">
-                    <h4 class="card-title">Profile Details</h4>
-                    <p class="card-text">
-                        <strong>Name</strong>: <%= user.fullName %><br>
-                        <strong>Gender</strong>: <%= user.gender %><br>
-                        <strong>Age</strong>: <%= user.age %><br>
-                        <strong>About</strong>: <%= user.about %><br>
-                    </p>
+
+        <div class="card text-xs-center">
+            <br>
+            <div class="row valign-wrapper">
+                <h3 class="form-signin-heading grey-text"><%= user.fullName%>'s Profile</h3>
+                <div class="col s2">
+                    <img src="/images/DefaultRunner.jpg" alt="Card image cap" class="circle responsive-img">
+                </div>
+            </div>
+            <div class="card-block">
+                <p class="card-text">
+                <div class="input-field col s12">
+                    <strong>Name</strong>: <%= user.fullName %><br>
+                </div>
+                <div class="input-field col s12">
+                    <strong>Gender</strong>: <%= user.gender %><br>
+                </div>
+                <div class="input-field col s12">
+                    <strong>Age</strong>: <%= user.age %><br>
+                </div>
+                <div class="input-field col s12">
+                    <strong>About</strong>: <%= user.about %><br>
+                </div>
+                </p>
+                <form action="/users/<%=user._id%>?_method=DELETE" method="POST">
                     <div class="row">
                         <a href="/users" class="btn waves-effect waves-light">Logout</a>
                         <a href="/users/<%=user._id%>/edit" class="btn waves-effect waves-light">Update</a>
-                        <a href="/users/<%=user._id%>/activity" class="btn waves-effect waves-light">Show Activity</a>
-                        <form action="/users/<%=user._id%>?_method=DELETE" method="POST">
-                            <input type="submit" class="btn waves-effect waves-light" value="Delete Profile" />
-                        </form>
+                        <a href="/users/<%=user._id%>/activity" class="btn waves-effect waves-light">Activities</a>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Delete</button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </body>
-
 </html>
