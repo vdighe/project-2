@@ -17,16 +17,31 @@ router.get('/', async (req,res) => {
 });
 
 // ADD NEW HERE FIRST
-router.get('/new', (req, res) => {
-   
+router.get('/new', (req, res) => {   
     res.render(
       'users/new.ejs'
     )
   })
+
+// SHOW ACTIVITY PAGE HERE
+router.get('/:userId/activity/', async (req,res) => {
+  console.log(`Calling the show activity page`);
+  const userId = req.params.userId;
+  let user = await User.findById(userId);
+  console.log(user.fullName);
+  Activity.find({user:userId}, (err, allActivity) => {
+      console.log(allActivity);
+      res.render('activity/show.ejs', {user, allActivity});
+  });
+});
+// ADD SHOW PAGE HERE
+router.get('/:id', (req, res) => {
+    User.findById(req.params.id, (error, user) => {
+        res.render('users/show.ejs', {user});
+    });
+  });  
+
 // EDIT PAGE
-/* 
-*
-*/
 router.get('/:id/edit', (req, res) => {
     console.log(`Calling the edit user`);
     User.findById(req.params.id, (error, user) => {
@@ -34,12 +49,7 @@ router.get('/:id/edit', (req, res) => {
   });
 });
 
-// ADD SHOW PAGE HERE
-router.get('/:id', (req, res) => {
-    User.findById(req.params.id, (error, user) => {
-        res.render('users/show.ejs', {user});
-    });
-  });
+
   
 // DELETE
 router.delete('/:id', (req, res) => {

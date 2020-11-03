@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const Activity = require('./models/activity');
-const ActivityType = require('./models/activityType');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + 'vdighe-project2';
 // Connect to Mongo
@@ -15,7 +14,7 @@ mongoose.connect(MONGODB_URI,
         console.log('the connection with mongod is established');
     }
 );
-
+/*
 const actSeed = function () {
     ActivityType.create(
     {
@@ -25,7 +24,7 @@ const actSeed = function () {
         distance: 8
       })};
       
-/*
+
  username: { type: String, ref: "User", required: true },
     day: {
         type: Date,
@@ -57,25 +56,25 @@ const vdighe = User.findOne({ username: 'vdighe' }, (err, user) => {
         console.log(err);
     } else {
         console.log(user);
+        Activity.create({     
+            user : user._id,
+            day: new Date().setDate(new Date().getDate()-10),
+            activity: {
+                type: "Run",
+            },
+            name: "SprintRun",
+            distance: 8,
+            duration: 120,
+        });   
+        Activity.create({     
+            user : user._id,
+            day: new Date().setDate(new Date().getDate()-9),
+            activity: {
+                type: "Walk",
+            },
+            name: "RelaxedWalk",
+            distance: 5,
+            duration: 60,
+        });                       
     }
 });
-const activitySeed = function () {
-    Activity.create({
-     
-      day: new Date().setDate(new Date().getDate()-10),
-      activities: [
-        {
-          type: "Run",
-          name: "SprintRun1",
-          duration: 120,
-          distance: 8
-        },
-        {
-            type: "Walk",
-            name: "Relaxed Walk",
-            duration: 20,
-            distance: 1
-          }
-      ]
-    })};
-    activitySeed();

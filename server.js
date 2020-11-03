@@ -45,6 +45,8 @@ app.use(express.urlencoded({ extended: true }))
 const userController = require('./controllers/usersController')
 app.use('/users', userController);
 
+//Add Activity Controller
+app.use('/activity', require('./controllers/activityController'));
 
 //___________________
 // Routes

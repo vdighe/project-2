@@ -19,20 +19,21 @@
                     <h4 class="card-title">Profile Details</h4>
                     <p class="card-text">
                         <strong>Name</strong>: <%= user.fullName %><br>
-                        <strong>Username</strong>: <%= user.username %><br>
-                        <strong>Gender</strong>: <%= user.gender %>
-                        <strong>Age</strong>: <%= user.age %>
-                        <strong>About</strong>: <%= user.about %>
+                        <strong>Gender</strong>: <%= user.gender %><br>
+                        <strong>Age</strong>: <%= user.age %><br>
+                        <strong>About</strong>: <%= user.about %><br>
                     </p>
-                    <a href="/users" class="btn btn-default">Logout</a>
-                    <button type="button" class="btn btn-default" name="button"><a href="/users/<%=user._id%>/edit">Update Profile</a></button>
-                    <form action="/users/<%=user._id%>?_method=DELETE" method="POST">
-                        <input type="submit" value="Delete Profile"/>
-                      </form>
+                    <div class="row">
+                        <a href="/users" class="btn waves-effect waves-light">Logout</a>
+                        <a href="/users/<%=user._id%>/edit" class="btn waves-effect waves-light">Update</a>
+                        <a href="/users/<%=user._id%>/activity" class="btn waves-effect waves-light">Show Activity</a>
+                        <form action="/users/<%=user._id%>?_method=DELETE" method="POST">
+                            <input type="submit" class="btn waves-effect waves-light" value="Delete Profile" />
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 

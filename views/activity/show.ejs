@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <%- include ('../partials/head.ejs') %>
+</head> 
+<body> 
+    <nav>
+        <%- include ('../partials/actNav.ejs') %>
+    </nav>
+    <table class="highlight"> 
+        <thead> 
+            <tr> 
+                <th>Name</th> 
+                <th>Day</th> 
+                <th>Activity</th> 
+                <th>Distance</th> 
+                <th>Duration</th> 
+            </tr> 
+        </thead>   
+        <tbody> 
+            <% for(let i = 0; i < allActivity.length; i++){ %>
+                <tr> 
+                    <td><%= allActivity[i].name%></td> 
+                    <td><%= allActivity[i].day.toDateString()%></td> 
+                    <td><%=allActivity[i].activity.type%></td> 
+                    <td><%=allActivity[i].distance%></td> 
+                    <td><%=allActivity[i].duration%></td>               
+                <% } %>             
+        </tbody> 
+    </table> 
+</body> 
+</html> 
