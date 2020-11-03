@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('../partials/head.ejs') %>
+</head>
+
+<body>
+    <nav>
+        <%- include ('../partials/actNav.ejs') %>
+    </nav>
+    <div class="container">
+        <form class="col s12" action="/users/<%= user._id%>/activity" method="post">   
+            <div class="card-panel grey lighten-5 z-depth-1">
+                <div class="row valign-wrapper">
+                    <h2 class="form-signin-heading grey-text">Add Activity</h2>
+                    <div class="col s2">
+                        <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt=""
+                            class="circle responsive-img">
+                        <!-- notice the "circle" class -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="Activity Name" name="name" id="name" type="text" class="validate">
+                        <label for="name">Activity Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input type=date name="date" id="date" class="datepicker grey-text" required>
+                      <label for="date">Activity Date</label>
+                    </div>
+                  </div>
+                <div class="input-field col s8">
+                    <div class="row">
+                        <p class="grey-text"><b>Activity Type</b></p>
+                        <div class="input-field col s4">
+                            <p>
+                                <label>
+                                    <input name="type" type="radio" value="Run" checked />
+                                    <span>Run</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="type" type="radio" value="Walk" />
+                                    <span>Walk</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input name="type" type="radio" value="Bike" />
+                                    <span>Bike</span>
+                                </label>
+                            </p>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input placeholder="Distance in miles" name="distance" id="distance" type="text"
+                                    class="validate">
+                                <label for="distance">Distance in miles</label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input placeholder="Duration in mins" name="duration" id="duration" type="text"
+                                    class="validate">
+                                <label for="duration">Duration in mins</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+                        <a href="/users/<%= user._id%>/activity" class="btn waves-effect waves-light">Cancel</a>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

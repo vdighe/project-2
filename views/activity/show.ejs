@@ -3,31 +3,41 @@
 
 <head>
     <%- include ('../partials/head.ejs') %>
-</head> 
-<body> 
+</head>
+
+<body>
     <nav>
         <%- include ('../partials/actNav.ejs') %>
     </nav>
-    <table class="highlight"> 
-        <thead> 
-            <tr> 
-                <th>Name</th> 
-                <th>Day</th> 
-                <th>Activity</th> 
-                <th>Distance</th> 
-                <th>Duration</th> 
-            </tr> 
-        </thead>   
-        <tbody> 
-            <% for(let i = 0; i < allActivity.length; i++){ %>
-                <tr> 
-                    <td><%= allActivity[i].name%></td> 
-                    <td><%= allActivity[i].day.toDateString()%></td> 
-                    <td><%=allActivity[i].activity.type%></td> 
-                    <td><%=allActivity[i].distance%></td> 
-                    <td><%=allActivity[i].duration%></td>               
-                <% } %>             
-        </tbody> 
-    </table> 
-</body> 
-</html> 
+    <table class="highlight">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Day</th>
+                <th>Activity</th>
+                <th>Distance</th>
+                <th>Duration</th>
+                <th> Action </th>
+            </tr>
+        </thead>
+        <tbody>
+            <form action="/users/<%= user._id%>/activity?_method=DELETE" method="POST">
+                <% for(let i = 0; i < allActivity.length; i++){ %>
+                <tr>
+                    <td><%= allActivity[i].name%></td>
+                    <td><%= allActivity[i].day.toDateString()%></td>
+                    <td><%=allActivity[i].activity.type%></td>
+                    <td><%=allActivity[i].distance%></td>
+                    <td><%=allActivity[i].duration%></td>
+                    <td><input type="submit" class="btn waves-effect waves-light" value="Delete" /></td>
+                </tr>
+                <% } %>
+            </form>
+        </tbody>
+    </table>
+    <div class="row">
+        <a href="/users/<%=user._id%>" class="btn waves-effect waves-light">Back</a>
+    </div>
+</body>
+
+</html>
