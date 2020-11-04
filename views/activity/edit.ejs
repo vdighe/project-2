@@ -7,7 +7,7 @@
 
 <body>
     <nav>
-        <%- include ('../partials/actNav.ejs') %>
+        <%- include ('../partials/nav.ejs') %>
     </nav>
     <div class="container">
         <form class="col s12" action="/users/<%= user._id%>/activity/<%= activity._id%>?_method=PUT" method="post">   

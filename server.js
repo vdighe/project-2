@@ -62,7 +62,7 @@ app.use('/users', userController);
 //app.use('/activity', require('./controllers/activityController'));
 
 // ADD SESSION CONTROLLER
-const sessionsController = require('./controllers/sessionsController.js')
+const sessionsController = require('./controllers/sessionsController')
 app.use('/sessions', sessionsController)
 
 //___________________
