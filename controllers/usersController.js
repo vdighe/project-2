@@ -17,7 +17,19 @@ const isAuthenticated = (req, res, next) => {
   }
 }
 
-router.get('/', async (req, res) => {
+const isAuthorized = async (req, res, next) =>{
+  console.log(`checking authorized user`);
+  if (req.session.currentUser) {
+    await User.findById(req.params.id, (error, user) => {
+        if (user.username === req.session.currentUser)
+          return next();
+    });
+  } else {
+    res.redirect('/sessions/new')
+  }
+}
+
+router.get('/', isAuthenticated, async (req, res) => {
   User.find().collation({ locale: 'en', strength: 2 }).sort({ username: 1 })
     .then((users) => {
       res.render('users/index.ejs', 
@@ -60,10 +72,8 @@ router.get("/:userId/activity/new", async (req, res) => {
 
 // SHOW ACTIVITY PAGE HERE
 router.get('/:userId/activity/', async (req, res) => {
-  console.log(`Calling the show activity page`);
   const userId = req.params.userId;
   let user = await User.findById(userId);
-  console.log(user.fullName);
   Activity.find({ user: userId }, (err, allActivity) => {
     console.log(allActivity);
     res.render('activity/show.ejs', { user, allActivity, currentUser: req.session.currentUser });
@@ -72,7 +82,7 @@ router.get('/:userId/activity/', async (req, res) => {
 
 
 // ADD SHOW PAGE HERE
-router.get('/:id', isAuthenticated, (req, res) => {
+router.get('/:id', (req, res) => {
   User.findById(req.params.id, (error, user) => {
     res.render('users/show.ejs', { user, currentUser: req.session.currentUser  });
   });

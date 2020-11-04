@@ -15,8 +15,11 @@
                 <div class="row valign-wrapper">
                     <h2 class="form-signin-heading grey-text">Add Activity</h2>
                     <div class="col s2">
-                        <img src="/images/DefaultRunner.jpg" alt=""
-                            class="circle responsive-img">
+                        <% if (user.photo == null) {%>
+                            <img src="/images/DefaultRunner.jpg" alt="Card image cap" class="circle responsive-img">
+                            <%  } else {%>
+                            <img src="<%=user.photo%>" alt="Card image cap" class="circle responsive-img">
+                            <% } %>
                     </div>
                 </div>
                 <div class="row">
