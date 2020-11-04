@@ -98,7 +98,6 @@ router.delete('/:id/activity/:activityId', async (req, res) => {
 
 // DELETE THE USER PROFILE
 // DELETE ALL THE USER ACTIVITES FIRST
-//user : user._id,
 router.delete('/:id', async (req, res) => {
 
   await Activity.find().where({ user: req.params.id }).remove().exec();

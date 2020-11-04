@@ -19,11 +19,12 @@
         <% for (let user of users ) { %>
         <div class="col s12 m6">
           <div class="card-content">
+            
             <span class="card-title">
-              <h5>
+              <h4>
                 <a href="/users/<%=user._id%>">
                   <%= user.fullName %>
-              </h5>
+              </h4>
             </span>
             <p><%= user.about%></p>
           </div>
