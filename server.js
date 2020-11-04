@@ -11,13 +11,7 @@ const db = mongoose.connection;
 // SESSION CONFIGURATION
 const session = require('express-session');
 
-app.use(
-  session({
-    secret: process.env.SECRET, //a random string do not copy this value or your stuff will get hacked
-    resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
-    saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
-  })
-)
+
 //___________________
 //Port
 //___________________
@@ -27,7 +21,7 @@ const PORT = process.env.PORT || 3000;
 //Database
 //___________________
 // How to connect to the database either via heroku or locally
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/'+ 'vdighe-project2';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/vdighe-project2';
 
 // Connect to Mongo
 mongoose.connect(MONGODB_URI ,    {
@@ -45,6 +39,13 @@ db.on('open' , ()=>{});
 //___________________
 //Middleware
 //___________________
+app.use(
+  session({
+    secret: process.env.SECRET, //a random string do not copy this value or your stuff will get hacked
+    resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
+    saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
+  })
+)
 //use public folder for static assets
 app.use(express.static('public'));
 // populates req.body with parsed info from forms - if no data from forms will return an empty object {}
@@ -53,11 +54,12 @@ app.use(express.json());// returns middleware that only parses JSON - may or may
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
 app.use(express.urlencoded({ extended: true }))
+
 // Add Controllers
 const userController = require('./controllers/usersController')
 app.use('/users', userController);
 //Add Activity Controller
-app.use('/activity', require('./controllers/activityController'));
+//app.use('/activity', require('./controllers/activityController'));
 
 // ADD SESSION CONTROLLER
 const sessionsController = require('./controllers/sessionsController.js')
@@ -70,6 +72,29 @@ app.use('/sessions', sessionsController)
 app.get('/' , (req, res) => {
   res.redirect('/users')
 });
+
+
+app.get('/any', (req, res) => {
+  //any route will work
+  req.session.anyProperty = 'any value'
+  console.log(req.session);
+  res.send('session was added');
+});
+
+app.get('/retrieve', (req, res) => {
+  //any route will work
+  console.log(req.session);
+  if (req.session.anyProperty === 'something you want it to') {
+    //test to see if that value exists
+    //do something if it's a match
+    console.log('it matches! cool');
+  } else {
+    //do something else if it's not
+    console.log('nope, not a match');
+  }
+  res.redirect('/');
+});
+
 //___________________
 //Listener
 //___________________
