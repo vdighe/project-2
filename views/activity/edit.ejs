@@ -10,10 +10,10 @@
         <%- include ('../partials/actNav.ejs') %>
     </nav>
     <div class="container">
-        <form class="col s12" action="/users/<%= user._id%>/activity" method="post">   
+        <form class="col s12" action="/users/<%= user._id%>/activity/<%= activity._id%>?_method=PUT" method="post">   
             <div class="card-panel grey lighten-5 z-depth-1">
                 <div class="row valign-wrapper">
-                    <h2 class="form-signin-heading grey-text">Add Activity</h2>
+                    <h2 class="form-signin-heading grey-text">Edit Activity</h2>
                     <div class="col s2">
                         <img src="/images/DefaultRunner.jpg" alt=""
                             class="circle responsive-img">
@@ -21,35 +21,38 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="Activity Name" name="name" id="name" type="text" class="validate">
+                        <input name="name" id="name" type="text" value="<%=activity.name%>" class="validate">
                         <label for="name">Activity Name</label>
                     </div>
                 </div>
-                <div class="row">
+                <!--div class="row">
                     <div class="input-field col s12">
-                      <input type=date name="date" id="date" class="datepicker grey-text" required>
+                      <input type="date" name="date" id="date" data-value="10/02/2020" lass="datepicker grey-text" required>
                       <label for="date">Activity Date</label>
                     </div>
-                  </div>
+                  </div-->
                 <div class="input-field col s8">
                     <div class="row">
                         <p class="grey-text"><b>Activity Type</b></p>
                         <div class="input-field col s4">
                             <p>
                                 <label>
-                                    <input name="type" type="radio" value="Run" checked />
+                                    <input name="activity.type" type="radio" value='Run' <% if (activity.activity.type === 'Run'){ %>
+                                        checked <%} %> />
                                     <span>Run</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input name="type" type="radio" value="Walk" />
+                                    <input name="activity.type" type="radio" value="Walk"  <% if (activity.activity.type === 'Walk'){ %>
+                                        checked <%} %> />
                                     <span>Walk</span>
                                 </label>
                             </p>
                             <p>
                                 <label>
-                                    <input name="type" type="radio" value="Bike" />
+                                    <input name="activity.type" type="radio" value="Bike" <% if (activity.activity.type === 'Bike'){ %> 
+                                        checked <%} %> />
                                     <span>Bike</span>
                                 </label>
                             </p>
@@ -57,19 +60,19 @@
                         <br>
                         <div class="row">
                             <div class="input-field col s4">
-                                <input placeholder="Distance in miles" name="distance" id="distance" type="text"
+                                <input name="distance" id="distance" type="text" value="<%= activity.distance%>"
                                     class="validate">
                                 <label for="distance">Distance in miles</label>
                             </div>
                             <div class="input-field col s4">
-                                <input placeholder="Duration in mins" name="duration" id="duration" type="text"
+                                <input name="duration" id="duration" type="text" value="<%= activity.duration%>"
                                     class="validate">
                                 <label for="duration">Duration in mins</label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Update</button>
                         <a href="/users/<%= user._id%>/activity" class="btn waves-effect waves-light">Cancel</a>
                     </div>
                     <br>

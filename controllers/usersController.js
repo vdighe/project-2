@@ -21,7 +21,31 @@ router.get('/new', (req, res) => {
   res.render(
     'users/new.ejs'
   )
-})
+});
+//
+// EDIT THE ACTIVITY PAGE
+/*
+let user = await User.findById(userId);
+  console.log(user.fullName);
+  Activity.find({ user: userId }, (err, allActivity) => {
+    console.log(allActivity);
+    res.render('activity/show.ejs', { user, allActivity });
+  });
+});
+*/
+//
+router.get('/:userId/activity/:activityId/edit', async (req,res) => {
+  const userId = req.params.userId;
+  let user = await User.findById(userId);
+  console.log(user);
+  const activityId = req.params.activityId;
+  Activity.findById(activityId, (err, activity) => {
+    console.log(activity);
+    console.log(activity.day.toLocaleDateString());
+    res.render('activity/edit.ejs', {user, activity});
+  });
+});
+
 // CREATE NEW ACTIVITY HERE
 router.get("/:userId/activity/new", async (req, res) => {
   const userId = req.params.userId;
@@ -59,6 +83,7 @@ router.get('/:id/edit', (req, res) => {
     res.render('users/edit.ejs', { user });
   });
 });
+
 router.delete('/:id/activity/:activityId', async (req, res) => {
   console.log(`Calling the delete activity `);
   await Activity.findByIdAndDelete(req.params.activityId);
@@ -66,11 +91,29 @@ router.delete('/:id/activity/:activityId', async (req, res) => {
 });
 
 
-// DELETE
-router.delete('/:id', (req, res) => {
-  User.findByIdAndRemove(req.params.id, (err, user) => {
+// DELETE THE USER PROFILE
+// DELETE ALL THE USER ACTIVITES FIRST
+router.delete('/:id', async(req, res) => {
+ // await Activity.findByIdAndRemove()
+  await User.findByIdAndRemove(req.params.id, (err, user) => {
     res.redirect('/users')
   })
+});
+// UPDATE THE ACTIVITY ROUTE
+// PUT /users/5fa0b7e55d3e325496809e2b/activity/5fa1d8797c1bc327c819a035
+
+router.put('/:id/activity/:actvityId', async (req, res) => {
+
+  let user = await User.findById(req.params.id);
+
+  Activity.findByIdAndUpdate(
+    req.params.actvityId,
+    req.body,
+    { new: true },
+    (error, updateActivity) => {
+      res.redirect(`/users/${user._id}/activity`);
+    }
+  )
 });
 
 // UPDATE
