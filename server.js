@@ -1,12 +1,23 @@
 //___________________
 //Dependencies
 //___________________
-//require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express ();
 const db = mongoose.connection;
+
+// SESSION CONFIGURATION
+const session = require('express-session');
+
+app.use(
+  session({
+    secret: process.env.SECRET, //a random string do not copy this value or your stuff will get hacked
+    resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
+    saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
+  })
+)
 //___________________
 //Port
 //___________________
@@ -17,6 +28,7 @@ const PORT = process.env.PORT || 3000;
 //___________________
 // How to connect to the database either via heroku or locally
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/'+ 'vdighe-project2';
+
 // Connect to Mongo
 mongoose.connect(MONGODB_URI ,    {
   useNewUrlParser: true,
@@ -44,9 +56,12 @@ app.use(express.urlencoded({ extended: true }))
 // Add Controllers
 const userController = require('./controllers/usersController')
 app.use('/users', userController);
-
 //Add Activity Controller
 app.use('/activity', require('./controllers/activityController'));
+
+// ADD SESSION CONTROLLER
+const sessionsController = require('./controllers/sessionsController.js')
+app.use('/sessions', sessionsController)
 
 //___________________
 // Routes

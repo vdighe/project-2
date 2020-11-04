@@ -1,9 +1,21 @@
+// Create a schema for password
+
+const bcrypt = require('bcrypt')
+const express = require('express')
 const router = require('express').Router();
 const User = require('../models/user');
 const Activity = require('../models/activity');
 
 // ROUTES
 // GET information for all users
+// Authetication
+const isAuthenticated = (req, res, next) => {
+  if (req.session.currentUser) {
+    return next()
+  } else {
+    res.redirect('/sessions/new')
+  }
+}
 
 router.get('/', async (req, res) => {
   User.find().collation({ locale: 'en', strength: 2 }).sort({ username: 1 })
@@ -20,21 +32,14 @@ router.get('/', async (req, res) => {
 router.get('/new', (req, res) => {
   res.render(
     'users/new.ejs'
+    , { currentUser: req.session.currentUser }
   )
 });
 //
 // EDIT THE ACTIVITY PAGE
-/*
-let user = await User.findById(userId);
-  console.log(user.fullName);
-  Activity.find({ user: userId }, (err, allActivity) => {
-    console.log(allActivity);
-    res.render('activity/show.ejs', { user, allActivity });
-  });
-});
-*/
+
 //
-router.get('/:userId/activity/:activityId/edit', async (req,res) => {
+router.get('/:userId/activity/:activityId/edit', async (req, res) => {
   const userId = req.params.userId;
   let user = await User.findById(userId);
   console.log(user);
@@ -42,7 +47,7 @@ router.get('/:userId/activity/:activityId/edit', async (req,res) => {
   Activity.findById(activityId, (err, activity) => {
     console.log(activity);
     console.log(activity.day.toLocaleDateString());
-    res.render('activity/edit.ejs', {user, activity});
+    res.render('activity/edit.ejs', { user, activity });
   });
 });
 
@@ -93,19 +98,19 @@ router.delete('/:id/activity/:activityId', async (req, res) => {
 
 // DELETE THE USER PROFILE
 // DELETE ALL THE USER ACTIVITES FIRST
-router.delete('/:id', async(req, res) => {
- // await Activity.findByIdAndRemove()
+//user : user._id,
+router.delete('/:id', async (req, res) => {
+
+  await Activity.find().where({ user: req.params.id }).remove().exec();
   await User.findByIdAndRemove(req.params.id, (err, user) => {
-    res.redirect('/users')
-  })
+     res.redirect('/users');
+  });  
 });
+
 // UPDATE THE ACTIVITY ROUTE
 // PUT /users/5fa0b7e55d3e325496809e2b/activity/5fa1d8797c1bc327c819a035
-
 router.put('/:id/activity/:actvityId', async (req, res) => {
-
   let user = await User.findById(req.params.id);
-
   Activity.findByIdAndUpdate(
     req.params.actvityId,
     req.body,
@@ -135,24 +140,27 @@ router.post('/:userId/activity', async (req, res) => {
   const userId = req.params.userId;
   let user = await User.findById(userId);
   await Activity.create({
-      user: user._id,
-      day:new Date(req.body.date),
-      activity: {
-        type: req.body.type,
-      },    
-      name: req.body.name,
-      distance: req.body.distance,
-      duration: req.body.duration,
-    }, (err, newActivity) => {
-      res.redirect(  `/users/${user._id}/activity`);    
-    });
+    user: user._id,
+    day: new Date(req.body.date),
+    activity: {
+      type: req.body.type,
+    },
+    name: req.body.name,
+    distance: req.body.distance,
+    duration: req.body.duration,
+  }, (err, newActivity) => {
+    res.redirect(`/users/${user._id}/activity`);
+  });
 });
 
-
+//
 // CREATE PROFILE OF USER
+// Hash the password later
 router.post('/', (req, res) => {
   console.log(req.body);
   try {
+    //overwrite the user password with the hashed password, then pass that in to our database
+    //req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
     let newUser = User.create(req.body);
     res.redirect('/users')
   } catch (error) {

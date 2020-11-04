@@ -16,3 +16,13 @@ nav {
     max-height: 64px!important;
     padding: 15px 0!important;
 }
+
+.card-header {
+    width: 100%;
+    max-height: 300px;
+  }
+
+  .card-header img{
+    width: 20%;
+  }
+  

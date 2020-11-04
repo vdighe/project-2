@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
-    <%- include ('../partials/head.ejs') %>
+  <%- include ('../partials/head.ejs') %>
 </head>
 
-<body>
-    <nav>
-        <%- include ('../partials/nav.ejs') %>
-    </nav>
-    <div class="container">
-
-        <h1>Runners Index Page</h1>
-        <ul>
-          <% for (let user of users ) { %>
-            <li>
-              <a href="/users/<%=user._id%>">
-                <%= user.fullName %>
-            </li>
-         <% } %>
-        </ul>
+<body class="container">
+  <nav>
+    <%- include ('../partials/nav.ejs') %>
+  </nav>
+  <div class="card">
+    <h1>Runners Index Page</h1>
+    <div class="card-header">
+      <img src="/images/DefaultRunner.jpg" alt="Card image cap" class="circle responsive-img">
+    </div>
+    <div class="row">
+      <div class="card blue-grey lighten-4">
+        <% for (let user of users ) { %>
+        <div class="col s12 m6">
+          <div class="card-content">
+            <span class="card-title">
+              <h5>
+                <a href="/users/<%=user._id%>">
+                  <%= user.fullName %>
+              </h5>
+            </span>
+            <p><%= user.about%></p>
+          </div>
+        </div>
+        <% } %>
       </div>
-    </body>
+    </div>
+  </div>
+</body>
 
 </html>

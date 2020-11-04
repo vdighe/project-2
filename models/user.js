@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         enum: ["male", "female"],
         required: 'Please enter your gender!'
     },
-    //password: String, ==> Add later during authentication process
+    password: {type :String, default:'xyz'},//==> Add later during authentication process
     age: { type: Number, required: 'Please enter your age!' },
     about: { type: String, required: 'Please write about youself!' },
     created: { type: Date, default: Date.now },
