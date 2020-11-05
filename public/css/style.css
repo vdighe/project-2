@@ -30,7 +30,10 @@ nav {
     width: 85%;
     margin: 35px auto;
   }
-
+  .col {
+    padding:20px;
+    box-sizing:border-box;
+  }
   .card-content h3 {
     font-size: 25px;
     margin-bottom: 0;

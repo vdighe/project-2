@@ -19,11 +19,14 @@
       <div class="col s12 cards-container">
         <% for (let user of users ) { %>
           <div class="col s6 m6">
-            <div class="card-content">
+            <div class="card-content light-grey">
               <span class="card-title">              
-                  <a href="/users/<%=user._id%>">
-                    <%= user.fullName %></a>            
-              </span>
+                <a href="/users/<%=user._id%>">
+                  <%= user.fullName %></a>            
+              </span>    
+              <div class="card-image">
+                <img src="<%=user.photo%>">               
+              </div>                       
               <p><%= user.about%></p>
             </div>
           </div>
