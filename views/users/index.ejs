@@ -10,29 +10,26 @@
     <%- include ('../partials/nav.ejs') %>
   </nav>
   <div class="card">
-    <h1>Runners Index Page</h1>
-    <div class="card-header">
+
+    <div class="card-header card horizontal">
+      <h1>Runners Index Page</h1>
       <img src="/images/DefaultRunner.jpg" alt="Card image cap" class="circle responsive-img">
     </div>
     <div class="row">
-      <div class="card blue-grey lighten-4">
+      <div class="col s12 cards-container">
         <% for (let user of users ) { %>
-        <div class="col s12 m6">
-          <div class="card-content">
-            
-            <span class="card-title">
-              <h4>
-                <a href="/users/<%=user._id%>">
-                  <%= user.fullName %>
-              </h4>
-            </span>
-            <p><%= user.about%></p>
+          <div class="col s6 m6">
+            <div class="card-content">
+              <span class="card-title">              
+                  <a href="/users/<%=user._id%>">
+                    <%= user.fullName %></a>            
+              </span>
+              <p><%= user.about%></p>
+            </div>
           </div>
-        </div>
         <% } %>
       </div>
     </div>
   </div>
 </body>
-
 </html>
