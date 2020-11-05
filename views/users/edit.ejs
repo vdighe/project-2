@@ -16,23 +16,25 @@
                 <h3 class="form-signin-heading">Update Profile for <%=user.username%></h3>
                 <div class="col s2">
                     <% if (user.photo == null || user.photo === ''){%>
-                    <img src="/images/DefaultRunner.jpg" alt="Card image cap" class="circle responsive-img">
+                    <img src="/images/DefaultRunner.jpg" alt="Card image cap" id="image-profile"
+                        class="circle responsive-img">
                     <%  } else {%>
-                    <img src="<%=user.photo%>" alt="Card image cap" class="circle responsive-img">
+                    <img src="<%=user.photo%>" alt="Card image cap" id="image-profile" class="circle responsive-img">
                     <% } %>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                </div>
-                <div class="input-field col s6">
-                    <input name="photo" type="url" id="image-input" value="<%=user.photo%>">
-                    <label for="photo" class="sr-only">Profile Photo</label>
                     <button id="b">Click for Profile Photo</button>
                 </div>
             </div>
-
             <form class="col s12" action="/users/<%=user.id%>?_method=PUT" method="post">      
+
+                <div class="row">
+                    <div class="input-field col s6">
+                    </div>
+                    <div class="input-field col s6">
+                        <input name="photo" type="url" id="image-input" value="<%=user.photo%>">
+                        <label for="photo" class="sr-only">Profile Photo</label>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="input-field col s6">
                         <input name="fullName" id="fullName" type="text" value="<%=user.fullName%>" class="validate">
@@ -81,13 +83,12 @@
     <script>
         document.getElementById("b").addEventListener("click", e => {
             let imageInput = document.getElementById("image-input");
-            let image = document.getElementById("image");
+            let image = document.getElementById("image-profile");
             if (imageInput.value) {
                 image.src = imageInput.value;
             } else {
                 image.src = "https://image.shutterstock.com/image-photo/athlete-runner-feet-running-on-260nw-1282334374.jpg"
             }
-            document.getElementById("photo").value = image.src;
         });
     </script>
 </body>

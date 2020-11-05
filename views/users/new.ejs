@@ -15,10 +15,10 @@
                 <div class="row valign-wrapper">
                     <h2 class="form-signin-heading grey-text">Profile Sign-Up</h2>
                     <div class="col s2">
-                        <img src="" class="circle responsive-img" id="image">
+                        <img src="" class="circle responsive-img" id="image-profile">
                     </div>
-                    
-              </div>  
+
+                </div>  
                 <div class="row">
                     <div class="input-field col s6">
                         <input placeholder="username" name="username" id="username" type="text" class="active validate"
@@ -27,9 +27,9 @@
                     </div>
                     <div class="input-field col s6">
                         <input name="photo" type="url" id="image-input">
-                        <label for="photo" class="sr-only">Profile Photo</label>                       
+                        <label for="photo" class="sr-only">Profile Photo</label>
                         <button id="b">Click for Profile Photo</button>
-                       
+
                     </div>
                     <!--div class = "input-field col s6">      
                        <label for = "password">Password</label>
@@ -79,14 +79,13 @@
         </form>      
     </div>
     <script>
-     document.getElementById("b").addEventListener("click", e => {
+        document.getElementById("b").addEventListener("click", e => {
             let imageInput = document.getElementById("image-input");
-            let image = document.getElementById("image");
+            let image = document.getElementById("image-profile");
             if (imageInput.value) {
                 image.src = imageInput.value;
-                
             } else {
-                image.src ="https://image.shutterstock.com/image-photo/athlete-runner-feet-running-on-260nw-1282334374.jpg"
+                image.src = "https://image.shutterstock.com/image-photo/athlete-runner-feet-running-on-260nw-1282334374.jpg"
             }
             document.getElementById("photo").value = image.src;
         });
