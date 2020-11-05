@@ -17,18 +17,22 @@ const isAuthenticated = (req, res, next) => {
   }
 }
 
-const isAuthorized = async (req, res, next) =>{
-  console.log(`checking authorized user`);
+// Authorization for performing tasks.
+const isAuthorized = async (req, res, next) => {
   if (req.session.currentUser) {
-    await User.findById(req.params.id, (error, user) => {
-        if (user.username === req.session.currentUser)
-          return next();
-    });
+    const userId = req.params.userId;
+    let user = await User.findById(userId);
+    if (req.session.currentUser.username === user.username){
+      return next();
+    } else {
+      res.redirect('/users');
+    }
   } else {
     res.redirect('/sessions/new')
   }
 }
-
+  
+// ROOT ROUTE  
 router.get('/', isAuthenticated, async (req, res) => {
   User.find().collation({ locale: 'en', strength: 2 }).sort({ username: 1 })
     .then((users) => {
@@ -38,6 +42,7 @@ router.get('/', isAuthenticated, async (req, res) => {
 });
 
 // ADD NEW HERE FIRST
+// Add new user
 router.get('/new', (req, res) => {
   res.render(
     'users/new.ejs'
@@ -48,20 +53,19 @@ router.get('/new', (req, res) => {
 //
 // EDIT THE ACTIVITY PAGE
 //
-router.get('/:userId/activity/:activityId/edit', isAuthenticated, async (req, res) => {
+router.get('/:userId/activity/:activityId/edit', isAuthorized, async (req, res) => {
   const userId = req.params.userId;
   let user = await User.findById(userId);
-  console.log(user);
   const activityId = req.params.activityId;
   Activity.findById(activityId, (err, activity) => {
-    console.log(activity);
-    console.log(activity.day.toLocaleDateString());
     res.render('activity/edit.ejs', { user, activity, currentUser: req.session.currentUser });
   });
 });
 
+//
 // CREATE NEW ACTIVITY HERE
-router.get("/:userId/activity/new", async (req, res) => {
+//
+router.get("/:userId/activity/new", isAuthorized, async (req, res) => {
   const userId = req.params.userId;
   let user = await User.findById(userId);
   console.log(`Calling the new activity page for ${user.fullName}`);
@@ -71,41 +75,46 @@ router.get("/:userId/activity/new", async (req, res) => {
 });
 
 // SHOW ACTIVITY PAGE HERE
-router.get('/:userId/activity/', async (req, res) => {
+router.get('/:userId/activity/', isAuthorized, async (req, res) => {
   const userId = req.params.userId;
   let user = await User.findById(userId);
   Activity.find({ user: userId }, (err, allActivity) => {
-    console.log(allActivity);
     res.render('activity/show.ejs', { user, allActivity, currentUser: req.session.currentUser });
   });
 });
 
-
+//
 // ADD SHOW PAGE HERE
-router.get('/:id', (req, res) => {
-  User.findById(req.params.id, (error, user) => {
+//
+router.get('/:userId', (req, res) => {
+  User.findById(req.params.userId, (error, user) => {
     res.render('users/show.ejs', { user, currentUser: req.session.currentUser  });
   });
 });
 
+//
 // EDIT PAGE
-router.get('/:id/edit', isAuthenticated, (req, res) => {
+//
+router.get('/:userId/edit', isAuthorized, (req, res) => {
   console.log(`Calling the edit user`);
-  User.findById(req.params.id, (error, user) => {
+  User.findById(req.params.userId, (error, user) => {
     res.render('users/edit.ejs', { user, currentUser: req.session.currentUser});
   });
 });
 
-router.delete('/:id/activity/:activityId', isAuthenticated, async (req, res) => {
+//
+// Delete activity
+//
+router.delete('/:userId/activity/:activityId', isAuthorized, async (req, res) => {
   console.log(`Calling the delete activity `);
   await Activity.findByIdAndDelete(req.params.activityId);
-  res.redirect(`/users/${req.params.id}/activity`);
+  res.redirect(`/users/${req.params.userId}/activity`);
 });
 
 
 // DELETE THE USER PROFILE
 // DELETE ALL THE USER ACTIVITES FIRST
-router.delete('/:id', async (req, res) => {
+router.delete('/:userId', isAuthorized, async (req, res) => {
   await Activity.find().where({ user: req.params.id }).remove().exec();
   await User.findByIdAndRemove(req.params.id, (err, user) => {
      res.redirect('/users');
@@ -128,7 +137,7 @@ router.put('/:id/activity/:actvityId', async (req, res) => {
 
 // UPDATE
 router.put('/:id', isAuthenticated, (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   User.findByIdAndUpdate(
     req.params.id,
     req.body,
