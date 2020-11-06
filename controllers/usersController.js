@@ -115,8 +115,8 @@ router.delete('/:userId/activity/:activityId', isAuthorized, async (req, res) =>
 // DELETE THE USER PROFILE
 // DELETE ALL THE USER ACTIVITES FIRST
 router.delete('/:userId', isAuthorized, async (req, res) => {
-  await Activity.find().where({ user: req.params.id }).remove().exec();
-  await User.findByIdAndRemove(req.params.id, (err, user) => {
+  await Activity.find().where({ user: req.params.userId }).remove().exec();
+  await User.findByIdAndRemove(req.params.userId, (err, user) => {
      res.redirect('/users');
   });  
 });
