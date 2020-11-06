@@ -105,6 +105,6 @@ This project contains basic structure for MVC architecture that is a working ful
 *Vaishali Dighe-Phanse*
 
 ### Issues, Resolutions and Future Enhancements
-#### Have used a DatePicker from Materialize design for selecting date. However, conversion of DB date and DatePicker date was a bit tricky so due to lack of time, wasn't able to apply for updates.
+#### Have used a DatePicker from Materialize design for selecting date. However, conversion of DB date and DatePicker date was a bit tricky so due to lack of time, wasn't able to use for the updates.
 #### A dashboard to show the daily/weekly/monthly activities to drill down on the statistics using Cube js or Pusher.
 
