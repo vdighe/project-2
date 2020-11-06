@@ -1,5 +1,13 @@
-# RunKeeper App To Keep Track Of Your Activity Profiles
-## Keep track of running, walking and/or biking.
+# Project Overview 
+## Project Description 
+### RunKeeper App To Keep Track Of Your Activity Profiles
+### Keep track of running, walking and/or biking.
+
+## Project Links
+- [github repo](https://github.com/vdighe/project-2)
+- deployment
+
+#### WireFrames
 #### Very Basic Schema
 ![Basic Schema](https://github.com/vdighe/project-2/blob/main/public/images/RunTracker.png)
 
@@ -16,8 +24,8 @@
 ![Add Tracker Page](https://github.com/vdighe/project-2/blob/main/public/images/AddTracker.png)
 
 #### Getting Started.
-1. Build a working full-stack application using Node.js, MongoDB, Express and EJS.
-2. 
+##### Build a working full-stack application using Node.js, MongoDB, Express and EJS.
+
 
 #### Code Snippets 
 ##### User Schema
