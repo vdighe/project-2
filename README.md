@@ -7,28 +7,44 @@
 - [github repo](https://github.com/vdighe/project-2)
 - deployment
 
-#### WireFrames
-#### Very Basic Schema
+### WireFrames
+### Very Basic Schema
 ![Basic Schema](https://github.com/vdighe/project-2/blob/main/public/images/RunTracker.png)
 
-#### Main Page (Index Page)
+### Main Page (Index Page)
 ![Index Page](https://github.com/vdighe/project-2/blob/main/public/images/mainPage.png)
 
-#### Show Runner Details Page
+### Show Runner Details Page
 ![Show Runner Page](https://github.com/vdighe/project-2/blob/main/public/images/showUser.png)
 
-#### Add Runner Page
+### Add Runner Page
 ![Add Runner Page](https://github.com/vdighe/project-2/blob/main/public/images/AddRunner.png)
 
-#### Add Workout Page
+### Add Workout Page
 ![Add Tracker Page](https://github.com/vdighe/project-2/blob/main/public/images/AddTracker.png)
 
-#### Getting Started.
-##### Build a working full-stack application using Node.js, MongoDB, Express and EJS.
+### Getting Started.
+This project contains basic structure for MVC architecture that is a working full-stack application with
+- HTML
+- CSS
+- Materialize
+- Javascipt
+- Node.js
+- Express
+- MongoDB and Mongoose
+![MVC](https://github.com/vdighe/project-2/blob/main/public/images/MVC.png)
+
+#### MVP
+##### The functionality of the application is based on CRUD models. The login form allows the user to access the user profiles page. The user profile includes username, name, age, gender, about... etc.
+#### The activity includes activity type, date, duration, and mileage covered. Each activity belongs to the user profile, while an user profile can have multiple activities associated with it. Each user can create, modify, or delete activity.
+#### The sign on form can create new user profiles, and each user can update/delete its profile.
+
+#### Bonus
+##### Authentication mechanism is added using session object. Along with authentication, authorization is also plugged in. Each user can only access/update/delete its own activities.
 
 
-#### Code Snippets 
-##### User Schema
+### Code Snippets 
+#### User Schema
     const userSchema = new mongoose.Schema({
         username: { type: String, unique: true, required: true , trim: true, minlength: 5},
         fullName: { type: String, required: 'Please enter your full name!' },
@@ -44,7 +60,7 @@
         photo: { type: String },
     }, { timestamps: true });
 
-##### Activity Schema
+#### Activity Schema
         const activitySchema = new mongoose.Schema({
         user: { type: String, ref: "User", required: true },
         day: {
@@ -64,7 +80,7 @@
         duration: {type:Number,default:0},
     },  { timestamps: true });
 
-##### Route to create a new activity
+#### Route to create a new activity
     router.post('/:userId/activity', async (req, res) => {
     console.log(req.body);
     const userId = req.params.userId;
@@ -83,4 +99,10 @@
     });
     });
 
-    ### Copyrights
+### Author 
+*Vaishali Dighe-Phanse*
+
+### Issues, Resolutions and Future Enhancements
+#### Have used a DatePicker from Materialize design for selecting date. However, conversion of DB date and DatePicker date was a bit tricky so due to lack of time, wasn't able to apply for updates.
+#### A dashboard to show the daily/weekly/monthly activities to drill down on the statistics using Cube js or Pusher.
+
