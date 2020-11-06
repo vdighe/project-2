@@ -4,8 +4,8 @@
 ### Keep track of running, walking and/or biking.
 
 ## Project Links
-- [github repo](https://github.com/vdighe/project-2)
-- deployment
+[Heroku App Link](https://vdighe-project2.herokuapp.com/)
+[GitHub Repo Link](https://github.com/vdighe/project-2)
 
 ### WireFrames
 ### Very Basic Schema
@@ -38,9 +38,19 @@ This project contains basic structure for MVC architecture that is a working ful
 ##### The functionality of the application is based on CRUD models. The login form allows the user to access the user profiles page. The user profile includes username, name, age, gender, about... etc.
 #### The activity includes activity type, date, duration, and mileage covered. Each activity belongs to the user profile, while an user profile can have multiple activities associated with it. Each user can create, modify, or delete activity.
 #### The sign on form can create new user profiles, and each user can update/delete its profile.
+#### __User Stories__
+- A Runtracker app should follow the MVC design.
+- Two data models are used (userProfile and ActivityProfile) with one to many relationship.
+- The CRUD operations should be allowed on both the models.
+    - An user can be added/updated/deleted in the application
+    - An user can have many activites which can be added/deleted or updated.
+- Both sign-on and new user registration allowed.
+- All the required routes have been incorporated.
 
 #### Bonus
 ##### Authentication mechanism is added using session object. Along with authentication, authorization is also plugged in. Each user can only access/update/delete its own activities.
+
+#### Components
 
 
 ### Code Snippets 
