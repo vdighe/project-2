@@ -4,8 +4,9 @@
 ### Keep track of running, walking and/or biking.
 
 ## Project Links
-[Heroku App Link](https://vdighe-project2.herokuapp.com/)
-[GitHub Repo Link](https://github.com/vdighe/project-2)
+* [Heroku App Link](https://vdighe-project2.herokuapp.com/)
+
+* [GitHub Repo Link](https://github.com/vdighe/project-2)
 
 ### WireFrames
 ### Very Basic Schema
@@ -32,7 +33,7 @@ This project contains basic structure for MVC architecture that is a working ful
 - Node.js
 - Express
 - MongoDB and Mongoose
-![MVC](https://github.com/vdighe/project-2/blob/main/public/images/MVC.png)
+
 
 #### MVP
 ##### The functionality of the application is based on CRUD models. The login form allows the user to access the user profiles page. The user profile includes username, name, age, gender, about... etc.
@@ -51,7 +52,7 @@ This project contains basic structure for MVC architecture that is a working ful
 ##### Authentication mechanism is added using session object. Along with authentication, authorization is also plugged in. Each user can only access/update/delete its own activities.
 
 #### Components
-
+![MVC](https://github.com/vdighe/project-2/blob/main/public/images/MVC.png)
 
 ### Code Snippets 
 #### User Schema
